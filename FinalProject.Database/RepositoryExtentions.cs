@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FinalProject.Database
 {
@@ -6,6 +7,9 @@ namespace FinalProject.Database
     {
         public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
         {
+            services.AddDbContext<FinalProjectDbContext>(options => options.UseSqlServer(connectionString));
+
+            return services;
 
         }
     }

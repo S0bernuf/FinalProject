@@ -1,17 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProject.Database.Entities
+namespace FinalProject.BusinessLogic.Dtos
 {
-    public class Person
+    public class RegisterUserDto
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        [StringLength(20, MinimumLength = 8)]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 12)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$", ErrorMessage = "Password must meet complexity requirements.")]
+        public string Password { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
@@ -40,16 +46,20 @@ namespace FinalProject.Database.Entities
         [EmailAddress]
         public string Email { get; set; }
 
-        public byte[] ProfilePhoto { get; set; }
+        public IFormFile ProfilePhoto { get; set; }
 
-        [ForeignKey("Residence")]
-        public int ResidenceId { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City cannot contain numbers or special characters.")]
+        public string City { get; set; }
 
-        public virtual Residence Residence { get; set; }
+        [Required]
+        [RegularExpression(@"^.*\s.*$", ErrorMessage = "Street must contain at least one space.")]
+        public string Street { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+        [Required]
+        [RegularExpression(@"^[0-9]+[A-Za-z]?$", ErrorMessage = "House Number must be alphanumeric.")]
+        public string HouseNumber { get; set; }
 
-        public virtual User User { get; set; }
+        public string ApartmentNumber { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace FinalProject.Database
     {
         public FinalProjectDbContext(DbContextOptions<FinalProjectDbContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
-        public DbSet<Residence> Residences { get; set; }
         public DbSet<Person> Persons { get; set; }
 
 

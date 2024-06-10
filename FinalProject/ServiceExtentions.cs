@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FinalProject.BusinessLogic.Services.Interfaces;
+using FinalProject.BusinessLogic.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,16 @@ namespace FinalProject.BusinessLogic
 {
     public static class ServiceExtentions
     {
-        public static void AddBusinessLogic(this IServiceCollection services)
-        {
+        
+            public static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
+            {
+                services.AddScoped<IUserService, UserService>();
+                services.AddScoped<IPersonService, PersonService>();
 
+                //services.AddScoped<ITokenService, TokenService>();
+                return services;
+            }
 
-        }
+        
     }
 }

@@ -45,7 +45,7 @@ namespace FinalProject.Database.Entities
         [ForeignKey("Residence")]
         public int ResidenceId { get; set; }
 
-        public virtual Residence Residence { get; set; }
+        public virtual Address Residence { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

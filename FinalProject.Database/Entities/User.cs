@@ -14,7 +14,7 @@ namespace FinalProject.Database.Entities
 
         [Required]
         [StringLength(20, MinimumLength = 8)]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         public byte[] PasswordHash { get; set; }

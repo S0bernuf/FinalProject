@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Database.Entities
 {
-    public class Residence
+    public class Address
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        //[RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City cannot contain numbers or special characters.")]
-        //[CityAttribute(ErrorMessage = "Invalid city name.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City cannot contain numbers or special characters.")]
         public string City { get; set; }
 
         [Required]

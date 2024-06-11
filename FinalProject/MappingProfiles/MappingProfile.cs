@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace FinalProject.BusinessLogic.MappingProfiles
 {
@@ -14,7 +14,9 @@ namespace FinalProject.BusinessLogic.MappingProfiles
     {
         public MappingProfile()
         {
-            
+            CreateMap<PersonDto, Person>().ReverseMap();
+            CreateMap<UserSignupDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

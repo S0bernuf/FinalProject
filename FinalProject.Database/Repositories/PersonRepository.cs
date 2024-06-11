@@ -1,5 +1,6 @@
 ﻿using FinalProject.Database.Entities;
 using FinalProject.Database.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +34,12 @@ namespace FinalProject.Database.Repositories
             _context.Persons.Update(person);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Person>> GetAllPersonsAsync()
+        {
+            return await _context.Persons.ToListAsync();
+        }
+
+
     }
 }

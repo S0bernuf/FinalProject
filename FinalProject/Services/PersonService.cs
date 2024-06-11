@@ -22,17 +22,46 @@ namespace FinalProject.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public Task<ServiceResponse<PersonDto>> CreatePersonAsync(int userId, PersonDto dto)
+        public async Task<ServiceResponse<PersonDto>> CreatePersonAsync(int userId, PersonDto dto)
         {
-            throw new NotImplementedException();
+            var person = _mapper.Map<Person>(dto);
+            person.UserId = userId;
+
+            if (dto.ProfilePhoto != null)
+            {
+                person.ProfilePhoto = PhotoService.ResizeImage(dto.ProfilePhoto);
+            }
+
+            await _personRepository.AddAsync(person);
+            var resultDto = _mapper.Map<PersonDto>(person);
+            return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
         }
 
         public async Task<ServiceResponse<PersonDto>> GetPersonByIdAsync(int userId, int personId)
         {
-            throw new NotImplementedException();
+            var person = await _personRepository.GetByIdAsync(personId);
+            if (person == null || person.UserId != userId)
+                return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
+
+            var resultDto = _mapper.Map<PersonDto>(person);
+            return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
         }
 
-        public Task<ServiceResponse<PersonDto>> UpdatePersonAsync(int userId, int personId, PersonDto dto)
+        public async Task<ServiceResponse<PersonDto>> UpdatePersonNameAsync(int userId, int personId, string firstName, string lastName)
+        {
+            var person = await _personRepository.GetByIdAsync(personId);
+            if (person == null || person.UserId != userId)
+                return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
+
+            person.FirstName = firstName;
+            person.LastName = lastName;
+
+            await _personRepository.UpdateAsync(person);
+            var resultDto = _mapper.Map<PersonDto>(person);
+            return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
+        }
+
+        Task<ServiceResponse<PersonDto>> IPersonService.UpdatePersonAsync(int userId, int personId, PersonDto dto)
         {
             throw new NotImplementedException();
         }

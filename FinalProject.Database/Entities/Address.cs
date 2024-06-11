@@ -27,10 +27,6 @@ namespace FinalProject.Database.Entities
 
         public string ApartmentNumber { get; set; }
 
-        [ForeignKey("Person")]
-        public int PersonId { get; set; }
-
-        public virtual Person Person { get; set; }
 
     }
 }

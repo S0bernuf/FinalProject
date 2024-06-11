@@ -1,4 +1,5 @@
 using System.Text;
+using FinalProject.BusinessLogic.MappingProfiles;
 using FinalProject.BusinessLogic.Services;
 using FinalProject.BusinessLogic.Services.Interfaces;
 using FinalProject.Database;
@@ -79,6 +80,8 @@ namespace FinalProject.Api
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddControllers();
 
+            // Add AutoMapper
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
             var app = builder.Build();
@@ -87,7 +90,7 @@ namespace FinalProject.Api
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Note API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinalProject API v1"));
             }
 
             app.UseHttpsRedirection();

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using FinalProject.BusinessLogic.Dtos;
 using FinalProject.BusinessLogic.Services.Interfaces;
+using FinalProject.Database.Repositories.Interfaces;
+using FinalProject.Database.Repositories;
 
 namespace FinalProject.Api.Controllers
 {
@@ -11,10 +13,11 @@ namespace FinalProject.Api.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonService _personService;
-
-        public PersonController(IPersonService personService)
+        private readonly IPersonRepository _personRepository;
+        public PersonController(IPersonService personService, IPersonRepository personRepository)
         {
             _personService = personService;
+            _personRepository = personRepository;
         }
 
         [HttpPost]
@@ -41,11 +44,17 @@ namespace FinalProject.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{personId}")]
         [Authorize]
-        public async Task<IActionResult> GetPersonById(int id)
+        public async Task<IActionResult> GetPersonById(int personId)
         {
-            throw new NotImplementedException();
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _personService.GetPersonByIdAsync(userId, personId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            return Ok(result);
         }
+
+
     }
 }

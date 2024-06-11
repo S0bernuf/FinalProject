@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace FinalProject.BusinessLogic.Dtos
 {
-    internal class PhotoDto
+    public class UserDto
     {
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+
     }
 }

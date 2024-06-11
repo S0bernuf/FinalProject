@@ -8,6 +8,9 @@ using FinalProject.BusinessLogic.CustomAttributes;
 
 namespace FinalProject.BusinessLogic.Dtos
 {
+    /*
+     * 1. remove not used usings
+     */
     public class AddressDto
     {
         [Required]

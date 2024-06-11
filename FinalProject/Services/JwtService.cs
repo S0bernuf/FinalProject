@@ -54,7 +54,7 @@ namespace FinalProject.BusinessLogic.Services
             {
                 UserName = username,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                PasswordSalt = passwordSalt,
             };
         }
 

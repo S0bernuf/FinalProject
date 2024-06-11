@@ -8,6 +8,9 @@ using FinalProject.Database.Entities;
 
 namespace FinalProject.BusinessLogic.Services.Interfaces
 {
+    /*
+     * 1. remove not used usings
+     */
     public interface IPersonService
     {
         //Sutvarkyti pagal koki modeli kaip teisingai turi buti pakeistas PersonDto

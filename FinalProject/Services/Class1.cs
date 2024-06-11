@@ -7,6 +7,10 @@ using System.IO;
 
 namespace FinalProject.BusinessLogic.Services
 {
+    /*
+     * 1. remove not used usings
+     * 2. class name does not match file name
+     */
     public class PhotoService
     {
         public static byte[] ResizeImage(IFormFile imageFile)

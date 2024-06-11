@@ -12,6 +12,13 @@ using FinalProject.Database.Repositories.Interfaces;
 
 namespace FinalProject.BusinessLogic.Services
 {
+    /*
+     * 1. remove not used usings
+     * 2.  user.Role = "User"; //Pridedama defaultine role, pakeisti i admin duombazeje
+     * better approach would be to add in jwtService in method CreateUser to add    Role = "Admin"
+     * 3. Login method missing
+     * 4. In DeleteUserAsync method, user == null is not necessary, expression always false
+     */
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

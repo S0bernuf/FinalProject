@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Database.Repositories
 {
+    /*
+     * 1. remove unused usings
+     * 2. missing delete method
+     * 3. calling FindAsync() might not find anything, and app can crash if not catch in try catch block,
+     * better approach would be to use FirstOrDefaultAsync() 
+     * 4.
+     */
     public class PersonRepository : IPersonRepository
     {
         private readonly FinalProjectDbContext _context;

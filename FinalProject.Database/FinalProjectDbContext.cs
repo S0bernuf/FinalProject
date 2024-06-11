@@ -8,9 +8,15 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Database
 {
+    /*
+     * 1. remove not used usings
+     */
     public class FinalProjectDbContext : DbContext
     {
-        public FinalProjectDbContext(DbContextOptions<FinalProjectDbContext> options) : base(options) { }
+        public FinalProjectDbContext(DbContextOptions<FinalProjectDbContext> options) : base(options)
+        {
+            
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Person> Persons { get; set; }
 

@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Database.Repositories.Interfaces
 {
+    /*
+     * 1. remove not used usings
+     * 2. OPTIONAL: some of the methods is not used, if not used you can delete
+     * 3. OPTIONAL EXCEPTION CASE: or you created for later
+     */
     public interface IUserRepository
     {
         Task<bool> UserExistsAsync(string userName);

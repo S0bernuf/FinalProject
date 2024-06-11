@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Database.Entities
 {
+    /*
+     * 1. remove not used usings
+     */
     public class User
     {
         [Key]

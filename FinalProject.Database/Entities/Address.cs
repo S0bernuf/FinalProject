@@ -11,7 +11,7 @@ namespace FinalProject.Database.Entities
     public class Address
     {
         [Key]
-        public int Id { get; set; }
+        public int AddressId { get; set; }
 
         [Required]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City cannot contain numbers or special characters.")]

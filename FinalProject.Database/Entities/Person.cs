@@ -11,7 +11,7 @@ namespace FinalProject.Database.Entities
     public class Person
     {
         [Key]
-        public int Id { get; set; }
+        public int PersonId { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
@@ -42,10 +42,10 @@ namespace FinalProject.Database.Entities
 
         public byte[] ProfilePhoto { get; set; }
 
-        [ForeignKey("Residence")]
-        public int ResidenceId { get; set; }
+        [ForeignKey("Address")]
+        public int AddressId { get; set; }
 
-        public virtual Address Residence { get; set; }
+        public virtual Address Address { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

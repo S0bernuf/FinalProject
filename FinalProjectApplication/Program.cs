@@ -14,31 +14,31 @@ namespace FinalProject.Api
 
     public class Program
     {
-        
-            public static void Main(string[] args)
-            {
-                var builder = WebApplication.CreateBuilder(args);
 
-                //For Swagger
-                builder.Services.AddSwaggerGen(options =>
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            //For Swagger
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo
-                    {
-                        Version = "v1",
-                        Title = "Note API",
-                        Description = "Product WebAPI"
-                    });
-                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                    {
-                        Scheme = "Bearer",
-                        BearerFormat = "JWT",
-                        In = ParameterLocation.Header,
-                        Name = "Authorization",
-                        Description = "Bearer Authentication with JWT Token",
-                        Type = SecuritySchemeType.Http
-                    });
-                    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                    {
+                    Version = "v1",
+                    Title = "FinalProject API",
+                    Description = "Product WebAPI"
+                });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Description = "Bearer Authentication with JWT Token",
+                    Type = SecuritySchemeType.Http
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
                         {
                             new OpenApiSecurityScheme
                             {
@@ -50,57 +50,57 @@ namespace FinalProject.Api
                             },
                             new List<string>()
                         }
-                    });
+                });
+            });
+
+            //For Authentication
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    };
                 });
 
-                //For Authentication
-                builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true,
-                            ValidateAudience = true,
-                            ValidateLifetime = true,
-                            ClockSkew = TimeSpan.Zero,
-                            ValidateIssuerSigningKey = true,
-                            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                            ValidAudience = builder.Configuration["Jwt:Audience"],
-                            IssuerSigningKey =
-                                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                        };
-                    });
+            //Add services to the container.
+            builder.Services.AddDbContext<FinalProjectDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddControllers();
 
-            // Add services to the container.
-                builder.Services.AddDbContext<FinalProjectDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
-                builder.Services.AddScoped<IUserService, UserService>();
-                builder.Services.AddScoped<IJwtService, JwtService>();
-                builder.Services.AddScoped<IUserRepository, UserRepository>();
-                builder.Services.AddControllers();
-                
-               
 
-                var app = builder.Build();
 
-                // Configure the HTTP request pipeline.
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseSwagger();
-                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Note API v1"));
-                }
+            var app = builder.Build();
 
-                app.UseHttpsRedirection();
-
-                app.UseAuthentication();
-
-                app.UseAuthorization();
-
-                app.MapControllers();
-
-                app.Run();
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Note API v1"));
             }
-        
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+
     }
 }
 

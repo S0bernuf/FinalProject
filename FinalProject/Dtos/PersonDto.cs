@@ -12,31 +12,31 @@ namespace FinalProject.BusinessLogic.Dtos
     public class PersonDto
     {
         [Required]
-        [Name(ErrorMessage = "Invalid name.")]
+        [Name]
         public string FirstName { get; set; }
 
         [Required]
-        [LastName(ErrorMessage = "Invalid last name.")]
+        [LastName]
         public string LastName { get; set; }
 
         [Required]
-        [Gender(ErrorMessage = "Invalid gender.")]
+        [Gender]
         public string Gender { get; set; }
 
         [Required]
-        [Birthday(ErrorMessage = "Invalid birthday.")]
+        [Birthday]
         public DateTime Birthday { get; set; }
 
         [Required]
-        [PersonalId(ErrorMessage = "Invalid personal identification code.")]
+        [PersonalId]
         public string PersonalCode { get; set; }
 
         [Required]
-        [PhoneNumber(ErrorMessage = "Invalid telephone number.")]
+        [PhoneNumber]
         public string TelephoneNumber { get; set; }
 
         [Required]
-        [EmailDomain(ErrorMessage = "Invalid email.")]
+        [EmailDomain]
         public string Email { get; set; }
 
         [Required]

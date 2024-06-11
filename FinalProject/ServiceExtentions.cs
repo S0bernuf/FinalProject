@@ -11,16 +11,15 @@ namespace FinalProject.BusinessLogic
 {
     public static class ServiceExtentions
     {
-        
-            public static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
-            {
-                services.AddScoped<IUserService, UserService>();
-                services.AddScoped<IPersonService, PersonService>();
+        // Praita karta nepavyko iskviesti, reikia paziureti kas negerai
+        public static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPersonService, PersonService>();
 
-                //services.AddScoped<ITokenService, TokenService>();
-                return services;
-            }
+            return services;
+        }
 
-        
+
     }
 }

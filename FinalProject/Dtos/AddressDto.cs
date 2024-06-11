@@ -11,18 +11,18 @@ namespace FinalProject.BusinessLogic.Dtos
     public class AddressDto
     {
         [Required]
-        [City(ErrorMessage = "Invalid city name.")]
+        [City]
         public string City { get; set; }
 
         [Required]
-        [Street(ErrorMessage = "Invalid street name.")]
+        [Street]
         public string Street { get; set; }
 
         [Required]
-        [HouseNumber(ErrorMessage = "Invalid house number.")]
+        [HouseNumber]
         public string HouseNumber { get; set; }
 
-        [ApartmentNumber(ErrorMessage = "Invalid apartment number.")]
+        [ApartmentNumber]
         public string ApartmentNumber { get; set; }
     }
 }

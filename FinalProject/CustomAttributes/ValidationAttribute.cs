@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.BusinessLogic.CustomAttributes
 {
-    // Perdaryti i atskitus ir sulietuvinti jei laiko bus
+    // Perdaryti i atskitus ir sulietuvinti jei laiko bus, validacijos generic tokios tai pakeist i tikslesnes
     public class CityAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

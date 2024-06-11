@@ -10,7 +10,7 @@ namespace FinalProject.Database.Entities
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         [StringLength(20, MinimumLength = 8)]

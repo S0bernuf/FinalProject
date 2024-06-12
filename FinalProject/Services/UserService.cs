@@ -62,6 +62,12 @@ namespace FinalProject.BusinessLogic.Services
 
         public async Task<ServiceResponse<List<User>>> GetUsersAsync()
         {
+            var result = new ServiceResponse<List<User>>();
+            return result;
+        }
+
+        public Task<ServiceResponse<User>> GetUserAsync(int userId)
+        {
             throw new NotImplementedException();
         }
     }

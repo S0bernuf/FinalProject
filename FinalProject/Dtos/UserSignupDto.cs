@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using FinalProject.BusinessLogic.CustomAttributes;
-using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace FinalProject.BusinessLogic.Dtos
 {

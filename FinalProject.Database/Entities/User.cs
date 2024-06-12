@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace FinalProject.Database.Entities
 {
     /*
-     * 1. remove not used usings
+     * 1. remove not used usings - DONE
      */
     public class User
     {

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FinalProject.BusinessLogic.Dtos;
-using FinalProject.Database.Entities;
+﻿using FinalProject.BusinessLogic.Dtos;
+
 
 namespace FinalProject.BusinessLogic.Services.Interfaces
 {
     /*
-     * 1. remove not used usings
+     * 1. remove not used usings -DONE
      */
     public interface IPersonService
     {

@@ -4,15 +4,15 @@ using System.Security.Claims;
 using FinalProject.BusinessLogic.Dtos;
 using FinalProject.BusinessLogic.Services.Interfaces;
 using FinalProject.Database.Repositories.Interfaces;
-using FinalProject.Database.Repositories;
+
 
 namespace FinalProject.Api.Controllers
 {
     /*
-     * 1. Remove not used usings after made changes
-     * 2. [Authorize(Roles = "User")] - authorize all class with this and you will not need to use duplicates on each method
-     * 4. [Authorize] is not enough because app should be RoleBased authentication
-     * 5. PersonController should not be using personRepository, remove it from there
+     * 1. Remove not used usings after made changes - DONE
+     * 2. [Authorize(Roles = "User")] - authorize all class with this and you will not need to use duplicates on each method -DONE
+     * 4. [Authorize] is not enough because app should be RoleBased authentication - DONE
+     * 5. PersonController should not be using personRepository, remove it from there - DONE
      * 6.        [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreatePerson([FromForm] PersonDto dto)
@@ -48,33 +48,41 @@ namespace FinalProject.Api.Controllers
      * ou do not need to int.Parse as .Value gets integer already, but if you need to parse, better approach would be tryParse
      * 9. all methods should be wrapped in try catch block
      */
+
+
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "User")]
     public class PersonController : ControllerBase
     {
         private readonly IPersonService _personService;
-        private readonly IPersonRepository _personRepository;
-        public PersonController(IPersonService personService, IPersonRepository personRepository)
+
+        public PersonController(IPersonService personService)
         {
             _personService = personService;
-            _personRepository = personRepository;
+
         }
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreatePerson([FromForm] PersonDto dto)
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var result = await _personService.CreatePersonAsync(userId, dto);
-            if (!result.Success)
-                return BadRequest(result.Message);
 
-            return Ok(result);
+        //Su nuotrauka kolkas nevargti pradzia ideta bet whatever
+        public async Task<ActionResult<PersonDto>> CreatePerson([FromForm] PersonDto dto)
+        {
+            try
+            {
+                Int32.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int userId); //<< perdaryti kitus
+                var result = await _personService.CreatePersonAsync(userId, dto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
-        [Authorize]
-        public async Task<IActionResult> UpdatePerson(int id, [FromForm] PersonDto dto)
+
+        public async Task<ActionResult<PersonDto>> UpdatePerson(int id, [FromForm] PersonDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var result = await _personService.UpdatePersonAsync(userId, id, dto);
@@ -85,8 +93,8 @@ namespace FinalProject.Api.Controllers
         }
 
         [HttpGet("{personId}")]
-        [Authorize]
-        public async Task<IActionResult> GetPersonById(int personId)
+
+        public async Task<ActionResult<PersonDto>> GetPersonById(int personId)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var result = await _personService.GetPersonByIdAsync(userId, personId);
@@ -98,3 +106,4 @@ namespace FinalProject.Api.Controllers
 
     }
 }
+

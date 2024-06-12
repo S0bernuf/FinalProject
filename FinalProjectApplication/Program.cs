@@ -2,6 +2,7 @@ using System.Text;
 using FinalProject.BusinessLogic.MappingProfiles;
 using FinalProject.BusinessLogic.Services;
 using FinalProject.BusinessLogic.Services.Interfaces;
+using FinalProject.BusinessLogic;
 using FinalProject.Database;
 using FinalProject.Database.Repositories;
 using FinalProject.Database.Repositories.Interfaces;
@@ -10,23 +11,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
+
 namespace FinalProject.Api
 {
-    
+
     /*
-     * 1. builder.Services.AddBusinessLogicServices(); this will inject all services from BusinessLayer Extensions
+     * 1. builder.Services.AddBusinessLogicServices(); this will inject all services from BusinessLayer Extensions - DONE
      * 2. These:             builder.Services.AddScoped<IUserService, UserService>();
                              builder.Services.AddScoped<IJwtService, JwtService>();
         can be removed, and do not forget to add in BusinessLogic Extensions:
-                            builder.Services.AddScoped<IPersonService, PersonService>();
-        3. You can move this: builder.Services.AddAutoMapper(typeof(MappingProfile)); in BusinessLogic Extensions as well
+                            builder.Services.AddScoped<IPersonService, PersonService>(); - DONE
+        3. You can move this: builder.Services.AddAutoMapper(typeof(MappingProfile)); in BusinessLogic Extensions as well - DONE
         4. after refactoring remove not used using's
-        5. I might be wrong have not tested yet, but i think you should add this in Program.cs:
-            builder.Services.AddAuthorization(options =>
-    {
-        options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
-        options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
-    });
+        
     
         6. Delete FinalProjectApplication.http file if not used
         7. Delete Photos folder if not used as well
@@ -93,15 +90,11 @@ namespace FinalProject.Api
                 });
 
             //Add services to the container.
-            builder.Services.AddDbContext<FinalProjectDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IJwtService, JwtService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddDbContext<FinalProjectDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+            builder.Services.RegisterServices();
+            builder.Services.RegisterRepositories();
             builder.Services.AddControllers();
 
-            // Add AutoMapper
-            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
             var app = builder.Build();

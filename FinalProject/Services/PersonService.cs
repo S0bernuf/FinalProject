@@ -1,27 +1,22 @@
 ﻿using FinalProject.BusinessLogic.Services.Interfaces;
 using FinalProject.Database.Entities;
 using FinalProject.Database.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using FinalProject.BusinessLogic.Dtos;
 
 namespace FinalProject.BusinessLogic.Services
 {
-    
+
     /*
-     * 1. remove unused usings
-     * 2. in CreatePersonAsync if statement is not necessary in your case (if(dto.ProfilePhoto != null))
-     * 3. in GetPersonByIdAsync, UpdatePersonNameAsync ,,,,,person == null,,,,,, not necessary, expression always false
+     * 1. remove unused usings -DONE
+     * 2. in CreatePersonAsync if statement is not necessary in your case (if(dto.ProfilePhoto != null)) -DONE
+     * 3. in GetPersonByIdAsync, UpdatePersonNameAsync ,,,,,person == null,,,,,, not necessary, expression always false -DONE
      * 4.         Task<ServiceResponse<PersonDto>> IPersonService.UpdatePersonAsync(int userId, int personId, PersonDto dto)
         {
             throw new NotImplementedException();
         }
         
-        this method Name should not be called as IPersonService.UpdatePersonAsync, remove IPersonService.
+        this method Name should not be called as IPersonService.UpdatePersonAsync, remove IPersonService. -DONE
      */
     public class PersonService : IPersonService
     {
@@ -38,11 +33,8 @@ namespace FinalProject.BusinessLogic.Services
         {
             var person = _mapper.Map<Person>(dto);
             person.UserId = userId;
+            person.ProfilePhoto = PhotoService.ResizeImage(dto.ProfilePhoto);
 
-            if (dto.ProfilePhoto != null)
-            {
-                person.ProfilePhoto = PhotoService.ResizeImage(dto.ProfilePhoto);
-            }
 
             await _personRepository.AddAsync(person);
             var resultDto = _mapper.Map<PersonDto>(person);
@@ -52,7 +44,7 @@ namespace FinalProject.BusinessLogic.Services
         public async Task<ServiceResponse<PersonDto>> GetPersonByIdAsync(int userId, int personId)
         {
             var person = await _personRepository.GetByIdAsync(personId);
-            if (person == null || person.UserId != userId)
+            if (person.UserId != userId)
                 return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
 
             var resultDto = _mapper.Map<PersonDto>(person);
@@ -62,7 +54,7 @@ namespace FinalProject.BusinessLogic.Services
         public async Task<ServiceResponse<PersonDto>> UpdatePersonNameAsync(int userId, int personId, string firstName, string lastName)
         {
             var person = await _personRepository.GetByIdAsync(personId);
-            if (person == null || person.UserId != userId)
+            if (person.UserId != userId)
                 return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
 
             person.FirstName = firstName;
@@ -73,7 +65,7 @@ namespace FinalProject.BusinessLogic.Services
             return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
         }
 
-        Task<ServiceResponse<PersonDto>> IPersonService.UpdatePersonAsync(int userId, int personId, PersonDto dto)
+        public async Task<ServiceResponse<PersonDto>> UpdatePersonAsync(int userId, int personId, PersonDto dto)
         {
             throw new NotImplementedException();
         }

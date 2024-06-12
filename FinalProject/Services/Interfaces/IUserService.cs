@@ -1,6 +1,5 @@
 ﻿using FinalProject.BusinessLogic.Dtos;
 using FinalProject.Database.Entities;
-using FinalProject.Database.Repositories.Interfaces;
 
 namespace FinalProject.BusinessLogic.Services.Interfaces
 {
@@ -10,5 +9,6 @@ namespace FinalProject.BusinessLogic.Services.Interfaces
         Task<ServiceResponse<User>> LoginAsync(UserLoginDto dto);
         Task<ServiceResponse<bool>> DeleteUserAsync(int userId);
         Task<ServiceResponse<List<User>>> GetUsersAsync();
+        Task<ServiceResponse<User>> GetUserAsync(int userId);
     }
 }

@@ -39,6 +39,6 @@ namespace FinalProject.BusinessLogic.Dtos
         public IFormFile ProfilePhoto { get; set; }
 
         [Required]
-        public AddressDto PlaceOfResidence { get; set; }
+        public AddressDto Address { get; set; }
     }
 }

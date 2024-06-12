@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using FinalProject.BusinessLogic.Dtos;
 using FinalProject.BusinessLogic.Services.Interfaces;
-using FinalProject.Database.Repositories.Interfaces;
-using System.Linq.Expressions;
 
 
 namespace FinalProject.Api.Controllers

@@ -17,5 +17,6 @@ namespace FinalProject.Database.Repositories.Interfaces
         Task<Person> GetByIdAsync(int personId);
         Task UpdateAsync(Person person);
         Task<IEnumerable<Person>> GetAllPersonsAsync();
+        Task<Person> DeletePersonAsync(Person person);
     }
 }

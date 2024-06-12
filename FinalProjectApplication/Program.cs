@@ -14,22 +14,6 @@ using Microsoft.OpenApi.Models;
 
 namespace FinalProject.Api
 {
-
-    /*
-     * 1. builder.Services.AddBusinessLogicServices(); this will inject all services from BusinessLayer Extensions - DONE
-     * 2. These:             builder.Services.AddScoped<IUserService, UserService>();
-                             builder.Services.AddScoped<IJwtService, JwtService>();
-        can be removed, and do not forget to add in BusinessLogic Extensions:
-                            builder.Services.AddScoped<IPersonService, PersonService>(); - DONE
-        3. You can move this: builder.Services.AddAutoMapper(typeof(MappingProfile)); in BusinessLogic Extensions as well - DONE
-        4. after refactoring remove not used using's
-        
-    
-        6. Delete FinalProjectApplication.http file if not used
-        7. Delete Photos folder if not used as well
-        8. Do not push filled appsettings.json with all settings, leave them blank
-     */
-
     public class Program
     {
 

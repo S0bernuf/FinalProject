@@ -1,16 +1,12 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using Microsoft.AspNetCore.Http;
-using System.IO;
+
 
 namespace FinalProject.BusinessLogic.Services
 {
-    /*
-     * 1. remove not used usings
-     * 2. class name does not match file name
-     */
+
     public class PhotoService
     {
         public static byte[] ResizeImage(IFormFile imageFile)

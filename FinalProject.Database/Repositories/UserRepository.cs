@@ -1,21 +1,11 @@
 ﻿using FinalProject.Database.Entities;
 using FinalProject.Database.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FinalProject.Database.Repositories
 {
-     /*
-     * 1. remove unused usings
-     * 2. calling FindAsync() or SingleOfDefaultAsync() might not find anything, and app can crash if not catch in try catch block,
-      * or checked if object is null
-     * better approach would be to use FirstOrDefaultAsync() 
-     * 4.
-      * */
+
     public class UserRepository : IUserRepository
     {
         private readonly FinalProjectDbContext _context;
@@ -36,14 +26,14 @@ namespace FinalProject.Database.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<User> GetUserByNameAsync(string userName)
+        public async Task<User?> GetUserByNameAsync(string userName)
         {
-            return await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
         }
 
-        public async Task<User> GetUserByIdAsync(int userId)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
-            return await _context.Users.FindAsync(userId);
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
         }
 
         public async Task DeleteUserAsync(User user)

@@ -9,23 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace FinalProject.Api.Controllers
 {
 
-    /*
-     * 1. using System.Security.Claims; - not used and should be removed -DONE
-     * 2. Add [Authorize(Roles="Admin")] on top of the class, and open Register and Login methods with [AllowAnonymous] -DONE
-     * 3. ex.: [HttpPost("register")] register and others should be capitalized -DONE
-     * 4. All methods should be wrapped in try catch blocks
-     * 5. PersonRepository shouldn't be used in UserController at all -DONE
-     * 6. Update method is not necessary for you - DONE
-     * 7. Do not overcomplicate:   return Ok(result.Data.Select(u => new { u.UserId, u.UserName })); just: return OK(result); -DONE
-     * 8. TIP: GetById(int id) and Delete(int id) are basically identical, just one for delete another for retrieval;
-     * 9.  public async Task<IActionResult> GetPersons()
-        {
-            var persons = await _personRepository.GetAllPersonsAsync();
-            var result = persons.Select(p => new { p.PersonId, p.FirstName, p.LastName }).ToList();
-            return Ok(result);
-        }
-        this method is using personRepository, you should be calling to userService.GerById(id);
-     */
+    //4. All methods should be wrapped in try catch blocks
+     
 
     [Route("api/[controller]")]
     [ApiController]
@@ -94,21 +79,16 @@ namespace FinalProject.Api.Controllers
                 return BadRequest(result.Message);
             return Ok(result);
         }
+
         [HttpGet("User")]
         public async Task<IActionResult> GetUsers()
         {
-            var result = await _userService.GetUsersAsync();
+            var result = await _userService.GetAllUsersAsync();
             if (!result.Success)
                 return BadRequest(result.Message);
             return Ok(result);
         }
 
-        [HttpGet("Persons")]
-        public async Task<IActionResult> GetPersons(int id)
-        {
-            var persons = await _userService.GetUsersAsync();
-            return Ok(persons);
-        }
     }
 }
 

@@ -3,9 +3,7 @@
 
 namespace FinalProject.Database.Entities
 {
-    /*
-     * 1. remove not used usings - DONE
-     */
+
     public class User
     {
         [Key]

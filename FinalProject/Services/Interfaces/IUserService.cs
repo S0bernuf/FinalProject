@@ -8,7 +8,7 @@ namespace FinalProject.BusinessLogic.Services.Interfaces
         Task<ServiceResponse<User>> RegisterAsync(UserSignupDto dto);
         Task<ServiceResponse<User>> LoginAsync(UserLoginDto dto);
         Task<ServiceResponse<bool>> DeleteUserAsync(int userId);
-        Task<ServiceResponse<List<User>>> GetUsersAsync();
+        Task<ServiceResponse<List<User>>> GetAllUsersAsync();
         Task<ServiceResponse<User>> GetUserAsync(int userId);
     }
 }

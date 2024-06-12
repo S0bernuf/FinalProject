@@ -7,17 +7,7 @@ using FinalProject.BusinessLogic.Dtos;
 namespace FinalProject.BusinessLogic.Services
 {
 
-    /*
-     * 1. remove unused usings -DONE
-     * 2. in CreatePersonAsync if statement is not necessary in your case (if(dto.ProfilePhoto != null)) -DONE
-     * 3. in GetPersonByIdAsync, UpdatePersonNameAsync ,,,,,person == null,,,,,, not necessary, expression always false -DONE
-     * 4.         Task<ServiceResponse<PersonDto>> IPersonService.UpdatePersonAsync(int userId, int personId, PersonDto dto)
-        {
-            throw new NotImplementedException();
-        }
-        
-        this method Name should not be called as IPersonService.UpdatePersonAsync, remove IPersonService. -DONE
-     */
+
     public class PersonService : IPersonService
     {
         private readonly IPersonRepository _personRepository;

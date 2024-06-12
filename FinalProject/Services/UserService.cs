@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using FinalProject.BusinessLogic.Dtos;
+﻿using FinalProject.BusinessLogic.Dtos;
 using FinalProject.BusinessLogic.Services.Interfaces;
 using FinalProject.Database.Entities;
 using FinalProject.Database.Repositories.Interfaces;
@@ -12,13 +6,7 @@ using FinalProject.Database.Repositories.Interfaces;
 
 namespace FinalProject.BusinessLogic.Services
 {
-    /*
-     * 1. remove not used usings
-     * 2.  user.Role = "User"; //Pridedama defaultine role, pakeisti i admin duombazeje
-     * better approach would be to add in jwtService in method CreateUser to add    Role = "Admin"
-     * 3. Login method missing
-     * 4. In DeleteUserAsync method, user == null is not necessary, expression always false
-     */
+
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
@@ -35,9 +23,10 @@ namespace FinalProject.BusinessLogic.Services
 
         public async Task<ServiceResponse<User>> RegisterAsync(UserSignupDto dto)
         {
+            // Check if user exists
             if (await _userRepository.UserExistsAsync(dto.UserName))
                 return new ServiceResponse<User> { Success = false, Message = "User already exists." };
-
+            // Create user
             var user = _jwtService.CreateUser(dto.UserName, dto.Password);
             user.Role = "User"; //Pridedama defaultine role, pakeisti i admin duombazeje
 
@@ -47,28 +36,37 @@ namespace FinalProject.BusinessLogic.Services
 
         public async Task<ServiceResponse<User>> LoginAsync(UserLoginDto dto)
         {
-            throw new NotImplementedException();
+            // Validate user
+            var user = await _userRepository.GetUserByNameAsync(dto.UserName);
+            if (user == null || !_jwtService.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
+                return new ServiceResponse<User> { Success = false, Message = "Invalid credentials" };
+
+            return new ServiceResponse<User> { Success = true, Data = user };
         }
 
         public async Task<ServiceResponse<bool>> DeleteUserAsync(int userId)
         {
+
             var user = await _userRepository.GetUserByIdAsync(userId);
-            if (user == null)
-                return new ServiceResponse<bool> { Success = false, Message = "User not found" };
+            if (user == null) return new ServiceResponse<bool> { Success = false, Message = "User not found" };
 
             await _userRepository.DeleteUserAsync(user);
             return new ServiceResponse<bool> { Success = true, Data = true };
         }
 
-        public async Task<ServiceResponse<List<User>>> GetUsersAsync()
+        public async Task<ServiceResponse<List<User>>> GetAllUsersAsync()
         {
-            var result = new ServiceResponse<List<User>>();
-            return result;
+            var user = await _userRepository.GetAllUsersAsync();
+            if (user == null) return new ServiceResponse<List<User>> { Success = false, Message = "No User found" };
+
+            var users = await _userRepository.GetAllUsersAsync();
+            return new ServiceResponse<List<User>> { Success = true, Data = users };
         }
 
-        public Task<ServiceResponse<User>> GetUserAsync(int userId)
+        public async Task<ServiceResponse<User>> GetUserAsync(int userId)
         {
-            throw new NotImplementedException();
+            var result = await _userRepository.GetUserByIdAsync(userId);
+            return new ServiceResponse<User> { Success = true, Data = result };
         }
     }
 }

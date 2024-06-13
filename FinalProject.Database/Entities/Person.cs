@@ -23,7 +23,7 @@ namespace FinalProject.Database.Entities
         public string Gender { get; set; }
 
         [Required]
-        public DateTime Birthday { get; set; }
+        public DateOnly Birthday { get; set; }
 
         [Required]
         [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = "Personal Code must be alphanumeric and unique.")]
@@ -37,16 +37,14 @@ namespace FinalProject.Database.Entities
         [EmailAddress]
         public string Email { get; set; }
 
-        public byte[] ProfilePhoto { get; set; }
-
         [ForeignKey("Address")]
         public int AddressId { get; set; }
 
-        public virtual Address Address { get; set; }
+        public Address Address { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
     }
 }

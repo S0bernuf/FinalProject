@@ -7,13 +7,13 @@ namespace FinalProject.BusinessLogic
 {
     public static class ServiceExtentions
     {
-        
+
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IJwtService, JwtService>();
-            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 
         }

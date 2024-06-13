@@ -58,7 +58,7 @@ namespace FinalProject.Api.Controllers
                 return BadRequest(result.Message);
 
             var token = _jwtService.GenerateJwtToken(result.Data.UserName, result.Data.UserId, result.Data.Role);
-            return Ok(new { Token = token });
+            return Ok(token);
         }
 
         [HttpGet("{id}")]

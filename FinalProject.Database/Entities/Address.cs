@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace FinalProject.Database.Entities
@@ -21,7 +22,7 @@ namespace FinalProject.Database.Entities
         [RegularExpression(@"^[0-9]+[A-Za-z]?$", ErrorMessage = "House Number must be alphanumeric.")]
         public string HouseNumber { get; set; }
 
-        public string ApartmentNumber { get; set; }
+        public string? ApartmentNumber { get; set; }
 
 
     }

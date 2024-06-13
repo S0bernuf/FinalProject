@@ -9,9 +9,11 @@ namespace FinalProject.BusinessLogic.MappingProfiles
     {
         public MappingProfile()
         {
-            CreateMap<PersonDto, Person>().ReverseMap();
-            CreateMap<UserSignupDto, User>();
-            CreateMap<User, UserDto>();
+            CreateMap<PersonDto, Person>().ForMember(a => a.Address, b => b.MapFrom(b => b.AddressDto)).ReverseMap();
+            CreateMap<UserSignupDto, User>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<AddressDto, Address>().ReverseMap();
+
         }
     }
 }

@@ -19,6 +19,6 @@ namespace FinalProject.BusinessLogic.Dtos
         public string HouseNumber { get; set; }
 
         [ApartmentNumber]
-        public string ApartmentNumber { get; set; }
+        public string? ApartmentNumber { get; set; }
     }
 }

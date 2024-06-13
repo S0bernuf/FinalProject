@@ -40,23 +40,17 @@ namespace FinalProject.BusinessLogic.Services
             return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
         }
 
-        public async Task<ServiceResponse<PersonDto>> UpdatePersonNameAsync(int userId, int personId, string firstName, string lastName)
+
+        public async Task<ServiceResponse<PersonDto>> UpdatePersonAsync(int userId, int personId, PersonDto dto)
         {
             var person = await _personRepository.GetByIdAsync(personId);
             if (person.UserId != userId)
                 return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
 
-            person.FirstName = firstName;
-            person.LastName = lastName;
-
-            await _personRepository.UpdateAsync(person);
-            var resultDto = _mapper.Map<PersonDto>(person);
-            return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
-        }
-
-        public async Task<ServiceResponse<PersonDto>> UpdatePersonAsync(int userId, int personId, PersonDto dto)
-        {
-            throw new NotImplementedException();
+            var result = _mapper.Map<Person>(dto);
+            result.UserId = userId;
+            await _personRepository.UpdateAsync(result);
+            return new ServiceResponse<PersonDto> { Success = true, Data = dto };
         }
 
         public async Task<ServiceResponse<PersonDto>> DeletePersonAsync(int userId, int personId)

@@ -1,5 +1,4 @@
 ﻿using FinalProject.BusinessLogic.CustomAttributes;
-using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -35,7 +34,6 @@ namespace FinalProject.BusinessLogic.Dtos
         [EmailDomain]
         public string Email { get; set; }
 
-        [Required]
-        public AddressDto Address { get; set; }
+        public AddressDto AddressDto { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace FinalProject.Database.Entities
         [Required]
         public string Role { get; set; } = "User";
 
-        public virtual List<Person> Persons { get; set; }
+        public List<Person> Persons { get; set; }
 
     }
 }

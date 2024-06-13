@@ -45,7 +45,7 @@ namespace FinalProject.BusinessLogic.Services
         {
             var person = await _personRepository.GetByIdAsync(personId);
             if (person.UserId != userId)
-                return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
+                return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };// Map the provided DTO to a Person entity
 
             var result = _mapper.Map<Person>(dto);
             result.UserId = userId;

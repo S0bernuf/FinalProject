@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FinalProject.Api.Controllers
 {
 
-    //4. All methods should be wrapped in try catch blocks
+    //All methods should be wrapped in try catch blocks
 
 
     [Route("api/[controller]")]

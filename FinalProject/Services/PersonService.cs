@@ -3,6 +3,7 @@ using FinalProject.Database.Entities;
 using FinalProject.Database.Repositories.Interfaces;
 using AutoMapper;
 using FinalProject.BusinessLogic.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.BusinessLogic.Services
 {
@@ -23,8 +24,6 @@ namespace FinalProject.BusinessLogic.Services
         {
             var person = _mapper.Map<Person>(dto);
             person.UserId = userId;
-            person.ProfilePhoto = PhotoService.ResizeImage(dto.ProfilePhoto);
-
 
             await _personRepository.AddAsync(person);
             var resultDto = _mapper.Map<PersonDto>(person);
@@ -58,6 +57,17 @@ namespace FinalProject.BusinessLogic.Services
         public async Task<ServiceResponse<PersonDto>> UpdatePersonAsync(int userId, int personId, PersonDto dto)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<PersonDto>> DeletePersonAsync(int userId, int personId)
+        {
+            var person = await _personRepository.GetByIdAsync(personId);
+            if (person.UserId != userId)
+                return new ServiceResponse<PersonDto> { Success = false, Message = "Person not found or unauthorized." };
+
+            await _personRepository.DeletePersonAsync(person);
+            var resultDto = _mapper.Map<PersonDto>(person);
+            return new ServiceResponse<PersonDto> { Success = true, Data = resultDto };
         }
     }
 }

@@ -104,12 +104,16 @@ namespace FinalProject.BusinessLogic.CustomAttributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var birthday = (DateTime)value;
-            if (birthday > DateTime.Now)
+            if (value is DateOnly birthday)
             {
-                return new ValidationResult(ErrorMessage ?? "Invalid birthday.");
+                var currentDate = DateOnly.FromDateTime(DateTime.Now);
+                if (birthday > currentDate)
+                {
+                    return new ValidationResult(ErrorMessage ?? "The birthday cannot be in the future.");
+                }
+                return ValidationResult.Success;
             }
-            return ValidationResult.Success;
+            return new ValidationResult("Invalid date type.");
         }
     }
 

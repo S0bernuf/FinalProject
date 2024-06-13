@@ -21,7 +21,7 @@ namespace FinalProject.BusinessLogic.Dtos
 
         [Required]
         [Birthday]
-        public DateTime Birthday { get; set; }
+        public DateOnly Birthday { get; set; }
 
         [Required]
         [PersonalId]
@@ -34,9 +34,6 @@ namespace FinalProject.BusinessLogic.Dtos
         [Required]
         [EmailDomain]
         public string Email { get; set; }
-
-        [Required]
-        public IFormFile ProfilePhoto { get; set; }
 
         [Required]
         public AddressDto Address { get; set; }

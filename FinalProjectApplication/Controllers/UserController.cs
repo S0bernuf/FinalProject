@@ -10,7 +10,7 @@ namespace FinalProject.Api.Controllers
 {
 
     //4. All methods should be wrapped in try catch blocks
-     
+
 
     [Route("api/[controller]")]
     [ApiController]
@@ -83,6 +83,7 @@ namespace FinalProject.Api.Controllers
         [HttpGet("User")]
         public async Task<IActionResult> GetUsers()
         {
+
             var result = await _userService.GetAllUsersAsync();
             if (!result.Success)
                 return BadRequest(result.Message);

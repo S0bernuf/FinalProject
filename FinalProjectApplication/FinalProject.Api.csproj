@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Photos\**" />
+    <Content Remove="Photos\**" />
+    <EmbeddedResource Remove="Photos\**" />
+    <None Remove="Photos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
@@ -20,10 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinalProject\FinalProject.BusinessLogic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Photos\" />
   </ItemGroup>
 
 </Project>

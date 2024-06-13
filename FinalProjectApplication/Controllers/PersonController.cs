@@ -7,20 +7,7 @@ using FinalProject.BusinessLogic.Services.Interfaces;
 
 namespace FinalProject.Api.Controllers
 {
-    /*
-     
-     * 1.        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreatePerson([FromForm] PersonDto dto)
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var result = await _personService.CreatePersonAsync(userId, dto);
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            return Ok(result);
-        }
-        in this method you returning Task<IActionResult>, but at the end of result you are returning OK() which is action result,
+    /*  Task<IActionResult>, but at the end of result you are returning OK() which is action result,
         but inside OK(result) there is object/objects if you want to return an object to be visible or presented in swagger,
         after calling method, Task<IActionResult> actually should be: Task<ActionResult<PersonDto>> in your case
     * 2.
@@ -40,8 +27,7 @@ namespace FinalProject.Api.Controllers
         OPTIONAL: better approach would be in PersonDto add new variable as: public int Id {get;set;}
         and remove not really necessary int id
         OPTIONAL EXCEPTION CASE: if you want to change an id of Person then this approach is totally fine 
-    * 3.       var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); y
-     * ou do not need to int.Parse as .Value gets integer already, but if you need to parse, better approach would be tryParse
+    
      
      */
 
@@ -61,12 +47,11 @@ namespace FinalProject.Api.Controllers
 
         [HttpPost]
 
-        //Su nuotrauka kolkas nevargti pradzia ideta bet whatever
         public async Task<ActionResult<PersonDto>> CreatePerson([FromForm] PersonDto dto)
         {
             try
             {
-                Int32.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int userId); //<< perdaryti kitus
+                Int32.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int userId);
                 var result = await _personService.CreatePersonAsync(userId, dto);
                 return Ok(result);
             }
@@ -107,6 +92,20 @@ namespace FinalProject.Api.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+        [HttpDelete("{personId}")]
+        public async Task<ActionResult> DeletePerson(int personId)
+        {
+            try
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                await _personService.DeletePersonAsync(userId, personId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
